@@ -9,7 +9,7 @@ export default class XHR {
   }
 
   init() {
-    const { method = 'get', data, params = {} } = this.config
+    const { method = 'get', body, params = {} } = this.config
     const request = new XMLHttpRequest()
 
     // let fullUrl = this.url;
@@ -22,6 +22,6 @@ export default class XHR {
     // }
 
     request.open(method.toUpperCase(), this.url, true)
-    request.send(data)
+    request.send(body)
   }
 }
