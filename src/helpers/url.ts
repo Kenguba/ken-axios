@@ -1,6 +1,6 @@
-import { isDate, isObject } from './utils'
+import { isDate, isPlainObject } from './utils'
 
-function encode(val: string): string {
+function encodeToURL(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
     .replace(/%3A/gi, ':')
@@ -17,28 +17,33 @@ export function bulidURL(url: string, options?: any) {
     return url
   }
 
-  const parts: string[] = []
+  const listParts: string[] = []
+
   Object.keys(params).forEach(key => {
     let val = params[key]
     if (val === null || typeof val === 'undefined') return
-    let data_arr: string[]
+
+    let transformToList: string[]
+    //TODO kim-stamp foo: ['bar', 'baz']  ==>  ?foo[]=bar&foo[]=baz  对于这种数据需要额为处理，就把所有的都提升转换成 【key:[]】 这样的格式进行处理
     if (Array.isArray(val)) {
-      data_arr = val
+      transformToList = val
       key += '[]'
     } else {
-      data_arr = [val]
+      transformToList = [val]
     }
-    data_arr.forEach(val => {
+
+    transformToList.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
-      parts.push(`${encode(key)}=${encode(val)}`)
+      listParts.push(`${encodeToURL(key)}=${encodeToURL(val)}`)
+      console.log(listParts)
     })
   })
 
-  let serializedParams = parts.join('&')
+  let serializedParams = listParts.join('&')
   if (serializedParams) {
     const markIndex = url.indexOf('#')
     if (markIndex !== -1) {

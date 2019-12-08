@@ -1,106 +1,101 @@
 import axios from '../../src/index'
 
-axios('/base/get', {
-  method: 'get',
-  params: {
-    foo: ['bar', 'baz']
-  }
-})
-
-axios('/base/get', {
-  method: 'get',
-  params: {
-    foo: {
-      bar: 'baz'
-    }
-  }
-})
-
-axios('/base/get', {
-  method: 'get',
-  params: {
-    date: new Date()
-  }
-})
-
-axios('/base/get',{
-  method: 'get',
-  params: {
-    foo: '@:$, '
-  }
-})
-
-axios('/base/get',{
-  method: 'get',
-  params: {
-    foo: 'bar',
-    baz: null
-  }
-})
-
-axios('/base/get',{
-  method: 'get',
-  params: {
-    foo: 'bar'
-  }
-})
-
-axios('/base/get',{
-  method: 'get',
-  params: {
-    bar: 'baz'
-  }
-})
-
-// axios('/base/get',{
-//   method: 'post',
-//   data: {
-//     a: 1,
-//     b: 2
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     foo: ['bar', 'baz']
 //   }
 // })
 
-// axios('/base/get',{
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     foo: {
+//       bar: 'baz'
+//     }
+//   }
+// })
+
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     date: new Date()
+//   }
+// })
+
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     foo: '@:$, '
+//   }
+// })
+
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     foo: 'bar',
+//     baz: null
+//   }
+// })
+
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     foo: 'bar'
+//   }
+// })
+
+// axios('/base/get', {
+//   method: 'get',
+//   params: {
+//     bar: 'baz'
+//   }
+// })
+
+// axios('/base/get', {
 //   method: 'post',
-//   headers: {
-//     'content-type': 'application/json;charset=utf-8'
-//   },
-//   data: {
+//   body: {
 //     a: 1,
 //     b: 2
 //   }
 // })
 
 
+
+
+axios('/base/get', {
+  method: 'post',
+  headers: {
+    'content-type': 'application/json;charset=utf-8'
+  },
+  data: {
+    a: 1,
+    b: 2
+  }
+})
+
+
+axios('/base/kim/buffer', {
+  method: 'post',
+  body: new Int32Array([21, 31])
+})
 //
-// const arr = new Int32Array([21, 31])
-//
-// axios({
+
+
+// axios('/base/post', {
 //   method: 'post',
-//   url: '/base/buffer',
-//   data: arr
-// })
-//
-//
-// const paramsString = 'q=URLUtils.searchParams&topic=api'
-// const searchParams = new URLSearchParams(paramsString)
-//
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   data: searchParams
+//   body: new URLSearchParams('q=URLUtils.searchParams&topic=api')
 // })
 
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   data: {
-//     a: 1,
-//     b: 2
-//   }
-// }).then((res) => {
-//   console.log(res)
-// })
+axios('/base/post', {
+  method: 'post',
+  body: {
+    a: 1,
+    b: 2
+  }
+}).then((res) => {
+  console.log(res)
+})
 
 // axios({
 //   method: 'post',
