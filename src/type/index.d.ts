@@ -18,4 +18,5 @@ export interface AxiosRequestConfig {
   method?: Method
   body?: any
   params?: any
+  headers?: any
 }
