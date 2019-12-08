@@ -1,4 +1,4 @@
-import DummyClass from "../src/--libraryname--"
+import DummyClass from "../src/learn-ts-axios"
 
 /**
  * Dummy test
