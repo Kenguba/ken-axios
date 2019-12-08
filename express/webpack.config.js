@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
 
   /**
-   * 我们会在 express 目录下建多个子目录
+   * 我们会在 examples 目录下建多个子目录
    * 我们会把不同章节的 demo 放到不同的子目录中
    * 每个子目录的下会创建一个 app.ts
    * app.ts 作为 webpack 构建的入口文件
@@ -15,7 +15,7 @@ module.exports = {
    */
   entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
     const fullDir = path.join(__dirname, dir)
-    const entry = path.join(fullDir, 'app.ts')
+    const entry = path.join(fullDir, 'app.js')
     if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
       entries[dir] = ['webpack-hot-middleware/client', entry]
     }
