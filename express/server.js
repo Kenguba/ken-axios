@@ -69,16 +69,15 @@ function registerBaseRouter() {
     res.json(req.body)
   })
 
-  router.post('/base/buffer', function (req, res) {
+  router.post('/base/kim/buffer', function (req, res) {
+    // res.header("Access-Control-Allow-Origin", "*");
     let msg = []
-    req.on('data', (chunk) => {
-      if (chunk) {
-        msg.push(chunk)
-      }
+    req.on('body', (chunk) => {
+      if (!chunk) return;
+      msg.push(chunk)
     })
     req.on('end', () => {
-      let buf = Buffer.concat(msg)
-      res.json(buf.toJSON())
+      res.json(Buffer.concat(msg).toJSON())
     })
   })
 }
