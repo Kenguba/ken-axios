@@ -1,6 +1,17 @@
 import { AxiosRequestConfig } from './type'
-import xhr from './xhr'
+import XHR from './xhr'
+import { bulidURL } from './helpers/url'
 
 export default function axios(url: string, options: AxiosRequestConfig): void {
-  xhr(url, options)
+  const fullURL = processConfig(url, options)
+  new XHR(fullURL, options).init()
+}
+
+function processConfig(url: string, options: AxiosRequestConfig): string {
+  let processConfigurl = transformURL(url, options)
+  return processConfigurl
+}
+
+function transformURL(url: string, options: AxiosRequestConfig) {
+  return bulidURL(url, options)
 }
