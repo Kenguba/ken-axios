@@ -70,9 +70,8 @@ function registerBaseRouter() {
   })
 
   router.post('/base/kim/buffer', function (req, res) {
-    // res.header("Access-Control-Allow-Origin", "*");
     let msg = []
-    req.on('body', (chunk) => {
+    req.on('data', (chunk) => {
       if (!chunk) return;
       msg.push(chunk)
     })
