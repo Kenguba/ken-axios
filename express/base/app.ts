@@ -64,7 +64,7 @@ import axios from '../../src/index'
 
 
 axios('/base/get', {
-  method: 'post',
+  method: 'get',
   headers: { "content-type": "application/json;charset=utf-8" },
   body: { a: 1, b: 2 }
 })
