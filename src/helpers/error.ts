@@ -7,7 +7,8 @@ export function createError(
   request?: any,
   response?: AxiosResponse
 ): AxiosError {
-  throw new AxiosError(message, config, code, request, response)
+  // throw new AxiosError(message, config, code, request, response)
+  return new AxiosError(message, config, code, request, response)
 }
 
 export class AxiosError extends Error {
