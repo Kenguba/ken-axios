@@ -12,9 +12,17 @@ export default class XHR {
 
   init(): AxiosPromise {
     return new Promise((resolve, reject) => {
-      const { method = 'get', body: data = null, params = {}, headers, responseType } = this.config
+      const config = this.config
+      const {
+        method = 'get',
+        body: data = null,
+        params = {},
+        headers,
+        responseType,
+        timeout
+      } = config
 
-      //创造XMLHttpRequest实例，发送处理后的URL、请求方法
+      //创造XMLHttpRequest实例,超时、响应类型,发送处理后的URL、请求方法
       const xhr = new XMLHttpRequest()
       // if (Object.keys(params).length > 0) {
       //   let data_arr = [];
@@ -23,6 +31,12 @@ export default class XHR {
       //   }
       //   this.url += '?' + data_arr.join('&');
       // }
+      if (timeout) {
+        xhr.timeout = timeout
+      }
+      if (responseType) {
+        xhr.responseType = responseType
+      }
       xhr.open(method.toUpperCase(), this.url!, true) //this.url后面的!是(非空断言操作符)
 
       //调用实例对象的读取状态改变方法
@@ -36,20 +50,18 @@ export default class XHR {
           status: xhr.status,
           statusText: xhr.statusText,
           headers: responseHeaders,
-          config: this.config,
+          config,
           request: xhr
         }
         handleResponse(response)
       }
 
       xhr.onerror = function handleError() {
-        reject(createError('Network Error', this.config, null, xhr))
+        reject(createError('Network Error', config, null, xhr))
       }
 
       xhr.ontimeout = function handleTimeout() {
-        reject(
-          createError(`Timeout of ${this.config.timeout} ms exceeded`, this.config, 'aborted', xhr)
-        )
+        reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
       }
 
       //请求头处理
@@ -68,13 +80,7 @@ export default class XHR {
           resolve(response)
         } else {
           reject(
-            createError(
-              `Request failed with status code ${response.status}`,
-              this.config,
-              null,
-              xhr,
-              response
-            )
+            createError(`请求失败，状态代码为 ${response.status}`, config, null, xhr, response)
           )
         }
       }
