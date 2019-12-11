@@ -13,7 +13,7 @@ function createInstance(config: AxiosRequestConfig): AxiosStatic {
   return instance as AxiosStatic
 }
 
-const axios = createInstance(defaults)
+const axios = createInstance()
 
 // axios.create = function create(config) {
 //   return createInstance(mergeConfig(defaults, config))

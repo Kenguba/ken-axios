@@ -25,6 +25,7 @@ export interface CreateError {
 }
 
 export interface AxiosRequestConfig {
+  url?: string
   method?: Method
   body?: any
   params?: any
@@ -68,7 +69,6 @@ export interface Axios {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }
-
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -79,6 +79,15 @@ export interface Axios {
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
+export interface AxiosInstance extends Axios {
+  <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
+  <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+}
+
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
 
@@ -87,15 +96,6 @@ export interface AxiosInterceptorManager<T> {
 
 export interface ResolvedFn<T> {
   (val: T): T | Promise<T>
-}
-
-export interface AxiosInstance extends Axios {
-  <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
-  <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
-}
-
-export interface AxiosStatic extends AxiosInstance {
-  create(config?: AxiosRequestConfig): AxiosInstance
 }
 
 export interface RejectedFn {
