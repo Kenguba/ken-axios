@@ -88,7 +88,7 @@ function registerErrorRouter() {
     //     msg: `【调用/error/get】`
     //   })
     // } else {
-    res.status(666)
+    res.status(400)
     res.end()
     // }
   })
@@ -98,7 +98,7 @@ function registerErrorRouter() {
       res.json({
         msg: `【调用/error/timeout】 3000毫秒`
       })
-    }, 3000)
+    }, 5000)
   })
 }
 
