@@ -1,19 +1,13 @@
 import axios from '../../src/index'
 
-axios({
-  url: '/extend/post',
+axios('/extend/post', {
   method: 'post',
-  data: {
-    msg: 'hi'
-  }
+  data: { msg: 'hi' }
 })
 
-axios.request({
-  url: '/extend/post',
+axios.request('/extend/post', {
   method: 'post',
-  data: {
-    msg: 'hello'
-  }
+  data: { msg: 'hello' }
 })
 //
 axios.get('/extend/get')

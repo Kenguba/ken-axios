@@ -106,6 +106,8 @@ function registerErrorRouter() {
 
 function registerExtendRouter() {
   router.get('/extend/get', function (req, res) {
+    console.log(res)
+
     res.json({
       msg: 'hello world'
     })
