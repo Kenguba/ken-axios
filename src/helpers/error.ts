@@ -1,34 +1,24 @@
-import { AxiosRequestConfig, AxiosResponse } from '../type'
+import { AxiosRequestConfig, AxiosResponse, CreateError } from '../type'
 
-export function createError(
-  message: string,
-  config: AxiosRequestConfig,
-  code?: string | null,
-  request?: any,
-  response?: AxiosResponse
-): AxiosError {
-  // throw new AxiosError(message, config, code, request, response)
-  return new AxiosError(message, config, code, request, response)
+export function createError(createError: CreateError) {
+  // return new AxiosError(createError)
+  // throw new AxiosError(createError)
+  console.error(new AxiosError(createError))
 }
 
 export class AxiosError extends Error {
   isAxiosError: boolean
-  config: AxiosRequestConfig
+  originalConfig: AxiosRequestConfig
   code?: string | null
-  request?: any
+  xhr?: any
   response?: AxiosResponse
 
-  constructor(
-    message: string,
-    config: AxiosRequestConfig,
-    code?: string | null,
-    request?: any,
-    response?: AxiosResponse
-  ) {
+  constructor(createError: CreateError) {
+    const { status, message, originalConfig, code, xhr, response } = createError
     super(message)
-    this.config = config
+    this.originalConfig = originalConfig
     this.code = code
-    this.request = request
+    this.xhr = xhr
     this.response = response
     this.isAxiosError = true
 

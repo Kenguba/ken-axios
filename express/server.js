@@ -98,7 +98,7 @@ function registerErrorRouter() {
       res.json({
         msg: `【调用/error/timeout】 3000毫秒`
       })
-    }, 5000)
+    }, 3000)
   })
 }
 

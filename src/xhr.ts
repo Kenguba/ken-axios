@@ -57,13 +57,13 @@ export default class XHR {
         handleResponse(response)
       }
 
-      xhr.onerror = function handleError() {
-        reject(createError(`网络连接错误,请连接网络后再请求`, config, null, xhr))
-      }
+      // xhr.onerror = function handleError() {
+      //   reject(createError(`网络连接错误,请连接网络后再请求`, config, null, xhr))
+      // }
 
-      xhr.ontimeout = function handleTimeout() {
-        reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
-      }
+      // xhr.ontimeout = function handleTimeout() {
+      //   reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
+      // }
 
       //请求头处理
       Object.keys(headers).forEach(name => {
@@ -80,9 +80,20 @@ export default class XHR {
         if (response.status >= 200 && response.status < 300) {
           resolve(response)
         } else {
-          reject(
-            createError(`请求失败，状态代码为 ${response.status}`, config, null, xhr, response)
-          )
+          createError({
+            message: `请求失败，状态代码为 ${response.status},请求路径：${url}`,
+            originalConfig: config,
+            xhr,
+            response
+          })
+          reject({
+            status: response.status,
+            url,
+            message: `请求失败，状态代码为 ${response.status}`,
+            originalConfig: config,
+            xhr,
+            response
+          })
         }
       }
     })
