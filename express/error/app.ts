@@ -31,10 +31,13 @@ axios('/error/timeout', {
   timeout: 2000
 }).then((res) => {
   console.log(res)
-}).catch((e: AxiosError) => {
-  console.error("【/error/timeout】", e.message)
-  console.error("【/error/timeout】", e.config)
-  console.error("【/error/timeout】", e.code)
-  console.error("【/error/timeout】", e.request)
-  console.error("【/error/timeout】", e.isAxiosError)
+}).catch((err: AxiosError) => {
+  console.error(err)
+  console.error("【/error/timeout】", {
+    message: err.message,
+    config: err.config,
+    code: err.code,
+    request: err.request,
+    isAxiosError: err.isAxiosError,
+  })
 })

@@ -11,7 +11,6 @@ export default function axios(url: string, config: AxiosRequestConfig): AxiosPro
   return new XHR(fullURL, config).init().then(res => {
     return transformResponseData(res) //对返回数据的处理
   })
-  // .catch(err => err)
 }
 
 function processConfig(url: string, config: AxiosRequestConfig): string {
