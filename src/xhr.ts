@@ -12,6 +12,7 @@ export default class XHR {
 
   init(): AxiosPromise {
     return new Promise((resolve, reject) => {
+      const url = this.url
       const config = this.config
       const {
         method = 'get',
@@ -57,11 +58,11 @@ export default class XHR {
       }
 
       xhr.onerror = function handleError() {
-        reject(createError('Network Error', config, null, xhr))
+        reject(createError(`网络错误 ${url}`, config, null, xhr))
       }
 
       xhr.ontimeout = function handleTimeout() {
-        reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
+        reject(createError(`超时:已超过 ${timeout}ms ${url}`, config, 'aborted', xhr))
       }
 
       //请求头处理
