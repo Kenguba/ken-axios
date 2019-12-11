@@ -120,7 +120,7 @@ function registerExtendRouter() {
   })
 
   router.delete('/extend/delete', function (req, res) {
-    res.end()    
+    res.end()
   })
 
   router.head('/extend/head', function (req, res) {
@@ -149,6 +149,17 @@ function registerExtendRouter() {
       }
     })
   })
+
+
+  router.post('/extend/sandbox', function (req, res) {
+    res.json({
+      code: 0,
+      message: 'ok',
+      result: { Kim: "一缕清风", user: '庆古巴', name: "帅小火" }
+      // result: { ...req.body }
+    })
+  })
+
 }
 
 function registerInterceptorRouter() {
