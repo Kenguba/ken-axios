@@ -32,10 +32,9 @@ axios('/error/timeout', {
 }).then((res) => {
   console.log(res)
 }).catch((e: AxiosError) => {
-  debugger
-  console.log("【/error/timeout】", e.message)
-  console.log("【/error/timeout】", e.config)
-  console.log("【/error/timeout】", e.code)
-  console.log("【/error/timeout】", e.request)
-  console.log("【/error/timeout】", e.isAxiosError)
+  console.error("【/error/timeout】", e.message)
+  console.error("【/error/timeout】", e.config)
+  console.error("【/error/timeout】", e.code)
+  console.error("【/error/timeout】", e.request)
+  console.error("【/error/timeout】", e.isAxiosError)
 })
