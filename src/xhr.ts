@@ -38,7 +38,7 @@ export default class XHR {
       if (responseType) {
         xhr.responseType = responseType
       }
-      xhr.open(method.toUpperCase(), this.url!, true) //this.url后面的!是(非空断言操作符)
+      xhr.open(method.toUpperCase(), url!, true) //this.url后面的!是(非空断言操作符)
 
       //调用实例对象的读取状态改变方法
       xhr.onreadystatechange = function handleLoad() {
@@ -58,11 +58,11 @@ export default class XHR {
       }
 
       xhr.onerror = function handleError() {
-        reject(createError(`网络错误 ${url}`, config, null, xhr))
+        reject(createError(`网络连接错误,请连接网络后再请求`, config, null, xhr))
       }
 
       xhr.ontimeout = function handleTimeout() {
-        reject(createError(`超时:已超过 ${timeout}ms ${url}`, config, 'aborted', xhr))
+        reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
       }
 
       //请求头处理
