@@ -14,6 +14,16 @@ export type Method =
   | 'patch'
   | 'PATCH'
 
+export interface CreateError {
+  status?: string
+  message: string
+  originalConfig: AxiosRequestConfig
+  code?: string | null
+  xhr?: any
+  response?: AxiosResponse
+  isAxiosError?: boolean
+}
+
 export interface AxiosRequestConfig {
   method?: Method
   body?: any
