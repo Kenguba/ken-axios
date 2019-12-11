@@ -65,9 +65,8 @@ function getUser<T>() {
 
 async function test() {
   const user = await getUser<User>()
-  if (user) {
-    console.log(user.result.name)
-  }
+  user && console.log(user.result.name)
+
 }
 
 test()
