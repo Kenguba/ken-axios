@@ -33,95 +33,78 @@ export default class Axios {
   }
 
   request(url: any, config?: any): AxiosPromise {
-    if (typeof url === 'string') {
-      if (!config) {
-        config = {}
-      }
-      config.url = url
-    } else {
-      config = url
-    }
+    return dispatchRequest(url, config)
+    // if (typeof url === 'string') {
+    //   if (!config) {
+    //     config = {}
+    //   }
+    //   config.url = url
+    // } else {
+    //   config = url
+    // }
 
-    config = mergeConfig(this.defaults, config)
+    // config = mergeConfig(this.defaults, config)
 
-    const chain: PromiseChain<any>[] = [
-      {
-        resolved: dispatchRequest,
-        rejected: undefined
-      }
-    ]
+    // const chain: PromiseChain<any>[] = [
+    //   {
+    //     resolved: dispatchRequest,
+    //     rejected: undefined
+    //   }
+    // ]
 
-    this.interceptors.request.forEach(interceptor => {
-      chain.unshift(interceptor)
-    })
+    // this.interceptors.request.forEach(interceptor => {
+    //   chain.unshift(interceptor)
+    // })
 
-    this.interceptors.response.forEach(interceptor => {
-      chain.push(interceptor)
-    })
+    // this.interceptors.response.forEach(interceptor => {
+    //   chain.push(interceptor)
+    // })
 
-    let promise = Promise.resolve(config)
+    // let promise = Promise.resolve(config)
 
-    while (chain.length) {
-      const { resolved, rejected } = chain.shift()!
-      promise = promise.then(resolved, rejected)
-    }
+    // while (chain.length) {
+    //   const { resolved, rejected } = chain.shift()!
+    //   promise = promise.then(resolved, rejected)
+    // }
 
-    return promise
+    // return promise
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('get', url, config)
+    return this.request(url, { ...config, method: 'get' })
   }
 
   delete(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('delete', url, config)
+    return this.request(url, { ...config, method: 'delete' })
   }
 
   head(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('head', url, config)
+    return this.request(url, { ...config, method: 'head' })
   }
 
   options(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('options', url, config)
+    return this.request(url, { ...config, method: 'options' })
   }
 
-  post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('post', url, data, config)
+  post(url: string, body?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.request(url, { body, ...config, method: 'options' })
   }
 
-  put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('put', url, data, config)
+  put(url: string, body?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.request(url, { body, ...config, method: 'put' })
   }
 
-  patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('patch', url, data, config)
-  }
-
-  _requestMethodWithoutData(
-    method: Method,
-    url: string,
-    config?: AxiosRequestConfig
-  ): AxiosPromise {
-    return this.request(
-      Object.assign(config || {}, {
-        method,
-        url
-      })
-    )
-  }
-
-  _requestMethodWithData(
-    method: Method,
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): AxiosPromise {
-    return this.request(
-      Object.assign(config || {}, {
-        method,
-        url,
-        data
-      })
-    )
+  patch(url: string, body?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.request(url, { body, ...config, method: 'patch' })
   }
 }
+
+// _requestMethodWithData(
+//   url: string,
+//   method: Method,
+//   body?: any,
+//   config?: AxiosRequestConfig
+// ): AxiosPromise {
+//   return this.request(url, Object.assign(config || {}, { method, body })
+//   )
+// }

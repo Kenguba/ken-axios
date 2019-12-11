@@ -5,7 +5,10 @@ import { transfromJSONstringify } from '../helpers/data'
 import { processHeaders } from '../helpers/headers'
 import { transform } from '../transform'
 
-export default function axios(url: string, config: AxiosRequestConfig): AxiosPromise {
+export default function dispatchRequest(
+  url: string,
+  config: AxiosRequestConfig = {}
+): AxiosPromise {
   const fullURL = processConfig(url, config) //对url?后参数的处理拼接,和对传参除GET请求体的处理
   transformHeaders(fullURL, config) //对headers处理
   return new XHR(fullURL, config).init().then(res => {
