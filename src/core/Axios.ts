@@ -9,6 +9,7 @@ import {
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
 import mergeConfig from './mergeConfig'
+import { isDictionary } from '../helpers/utils'
 
 interface Interceptors {
   request: InterceptorManager<AxiosRequestConfig>
@@ -24,7 +25,7 @@ export default class Axios {
   defaults: AxiosRequestConfig
   interceptors: Interceptors
 
-  constructor(initConfig: AxiosRequestConfig) {
+  constructor(url: string, initConfig: AxiosRequestConfig) {
     this.defaults = initConfig
     this.interceptors = {
       request: new InterceptorManager<AxiosRequestConfig>(),
@@ -33,15 +34,12 @@ export default class Axios {
   }
 
   request(url: any, config?: any): AxiosPromise {
+    if (typeof url === 'string') {
+    } else {
+      url = url.url
+      config = url.config
+    }
     return dispatchRequest(url, config)
-    // if (typeof url === 'string') {
-    //   if (!config) {
-    //     config = {}
-    //   }
-    //   config.url = url
-    // } else {
-    //   config = url
-    // }
 
     // config = mergeConfig(this.defaults, config)
 
@@ -87,7 +85,7 @@ export default class Axios {
   }
 
   post(url: string, body?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this.request(url, { body, ...config, method: 'options' })
+    return this.request(url, { body, ...config, method: 'post' })
   }
 
   put(url: string, body?: any, config?: AxiosRequestConfig): AxiosPromise {

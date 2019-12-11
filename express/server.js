@@ -114,11 +114,13 @@ function registerExtendRouter() {
   })
 
   router.options('/extend/options', function (req, res) {
-    res.end()
+    // res.status(200)
+    // res.end()
+    res.json({ name: "Kim" })
   })
 
   router.delete('/extend/delete', function (req, res) {
-    res.end()
+    res.end()    
   })
 
   router.head('/extend/head', function (req, res) {
@@ -126,15 +128,15 @@ function registerExtendRouter() {
   })
 
   router.post('/extend/post', function (req, res) {
-    res.json(req.body)
+    res.json()
   })
 
   router.put('/extend/put', function (req, res) {
-    res.json(req.body)
+    res.json()
   })
 
   router.patch('/extend/patch', function (req, res) {
-    res.json(req.body)
+    res.json()
   })
 
   router.get('/extend/user', function (req, res) {
