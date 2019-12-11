@@ -1,6 +1,6 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosPesponse } from './type'
-import { parseHeaders } from './helpers/headers'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosPromise, AxiosPesponse } from '../type'
+import { parseHeaders } from '../helpers/headers'
+import { createError } from '../helpers/error'
 
 export default class XHR {
   url: string
