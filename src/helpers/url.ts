@@ -11,8 +11,8 @@ function encodeToURL(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
-export function bulidURL(url: string, options?: any) {
-  const { params } = options
+export function bulidURL(url: string, config?: any) {
+  const { params } = config
   if (!params) {
     return url
   }
