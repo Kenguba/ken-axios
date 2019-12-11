@@ -36,7 +36,7 @@ export interface AxiosRequestConfig {
 }
 
 export interface AxiosPesponse<T = any> {
-  data: any
+  data: T
   status: number
   statusText: string
   headers: any
