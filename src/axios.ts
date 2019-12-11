@@ -5,29 +5,29 @@ import { transfromJSONstringify } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 import { transform } from './transform'
 
-export default function axios(url: string, options: AxiosRequestConfig): AxiosPromise {
-  const fullURL = processConfig(url, options) //对url?后参数的处理拼接,和对传参除GET请求体的处理
-  transformHeaders(url, options) //对headers处理
-  return new XHR(fullURL, options).init().then(res => {
+export default function axios(url: string, config: AxiosRequestConfig): AxiosPromise {
+  const fullURL = processConfig(url, config) //对url?后参数的处理拼接,和对传参除GET请求体的处理
+  transformHeaders(fullURL, config) //对headers处理
+  return new XHR(fullURL, config).init().then(res => {
     transformResponseData(res) //对返回数据的处理
     return res
   })
 }
 
-function processConfig(url: string, options: AxiosRequestConfig): string {
-  let processConfigurl = transformURL(url, options)
+function processConfig(url: string, config: AxiosRequestConfig): string {
+  let processConfigurl = transformURL(url, config)
 
-  options.body = transfromJSONstringify(options) //对post传参的处理
+  config.body = transfromJSONstringify(config) //对post传参的处理
   return processConfigurl
 }
 
-function transformURL(url: string, options: AxiosRequestConfig) {
-  return bulidURL(url, options)
+function transformURL(url: string, config: AxiosRequestConfig) {
+  return bulidURL(url, config)
 }
 
-function transformHeaders(url: string, options: AxiosRequestConfig) {
-  const { headers = {} } = options
-  options.headers = processHeaders(headers, options)
+function transformHeaders(url: string, config: AxiosRequestConfig) {
+  const { headers = {} } = config
+  config.headers = processHeaders(headers, config)
 }
 
 function transformResponseData(res: AxiosPesponse) {
