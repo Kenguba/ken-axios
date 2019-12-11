@@ -42,4 +42,12 @@ export interface AxiosResponse<T = any> {
   request: any
 }
 
+export interface AxiosError extends Error {
+  config: AxiosRequestConfig
+  code?: string
+  request?: any
+  response?: AxiosResponse
+  isAxiosError: boolean
+}
+
 export interface AxiosPromise extends Promise<AxiosPesponse> {}
