@@ -32,5 +32,5 @@ export function createError(
   request?: any,
   response?: AxiosResponse
 ): AxiosError {
-  return new AxiosError(message, config, code, request, response)
+  throw new AxiosError(message, config, code, request, response)
 }
