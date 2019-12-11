@@ -85,7 +85,7 @@ function registerErrorRouter() {
   router.get('/error/get', function (req, res) {
     if (Math.random() > 0.5) {
       res.json({
-        msg: `hello world`
+        msg: `【调用/error/get】`
       })
     } else {
       res.status(500)
@@ -96,11 +96,13 @@ function registerErrorRouter() {
   router.get('/error/timeout', function (req, res) {
     setTimeout(() => {
       res.json({
-        msg: `hello world`
+        msg: `【调用/error/timeout】 3000毫秒`
       })
     }, 3000)
   })
 }
+
+
 
 function registerExtendRouter() {
   router.get('/extend/get', function (req, res) {
