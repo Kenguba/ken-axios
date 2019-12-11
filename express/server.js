@@ -83,14 +83,14 @@ function registerBaseRouter() {
 
 function registerErrorRouter() {
   router.get('/error/get', function (req, res) {
-    if (Math.random() > 0.5) {
-      res.json({
-        msg: `【调用/error/get】`
-      })
-    } else {
-      res.status(500)
-      res.end()
-    }
+    // if (Math.random() > 0.5) {
+    //   res.json({
+    //     msg: `【调用/error/get】`
+    //   })
+    // } else {
+    res.status(666)
+    res.end()
+    // }
   })
 
   router.get('/error/timeout', function (req, res) {
