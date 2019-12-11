@@ -33,13 +33,14 @@ export default class Axios {
     }
   }
 
-  request(url: any, config?: any): AxiosPromise {
-    if (typeof url === 'string') {
+  request(overUrl: any, overConfig?: any): AxiosPromise {
+    if (typeof overUrl === 'string') {
     } else {
-      url = url.url
-      config = url.config
+      const { url, ...config } = overUrl
+      overUrl = url
+      overConfig = config
     }
-    return dispatchRequest(url, config)
+    return dispatchRequest(overUrl, overConfig)
 
     // config = mergeConfig(this.defaults, config)
 

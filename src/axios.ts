@@ -4,8 +4,8 @@ import { extend } from './helpers/utils'
 // import defaults from './defaults'
 // import mergeConfig from './core/mergeConfig'
 
-function createInstance(config: AxiosRequestConfig): AxiosStatic {
-  const context = new Axios(config)
+function createInstance(url: string, config: AxiosRequestConfig): AxiosStatic {
+  const context = new Axios(url, config)
   const instance = Axios.prototype.request.bind(context)
   extend(instance, context)
   return instance as AxiosStatic
