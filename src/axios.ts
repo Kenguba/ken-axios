@@ -6,9 +6,7 @@ import { extend } from './helpers/utils'
 
 function createInstance(url: string, config: AxiosRequestConfig): AxiosStatic {
   const context = new Axios(url, config)
-  console.log(context, 'context')
-  const instance = Axios.prototype.request.bind(new Axios(url, config))
-  console.log(instance, 'instance')
+  const instance = Axios.prototype.request.bind(context)
   extend(instance, context)
   return instance as AxiosStatic
 }
