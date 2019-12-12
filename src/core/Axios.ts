@@ -11,11 +11,6 @@ import InterceptorManager from './InterceptorManager'
 import mergeConfig from './mergeConfig'
 import { isDictionary } from '../helpers/utils'
 
-interface Interceptors {
-  request: InterceptorManager<AxiosRequestConfig>
-  response: InterceptorManager<AxiosResponse>
-}
-
 interface PromiseChain<T> {
   resolved: ResolvedFn<T> | ((config: AxiosRequestConfig) => AxiosPromise)
   rejected?: RejectedFn
@@ -23,7 +18,10 @@ interface PromiseChain<T> {
 
 export default class Axios {
   defaults: AxiosRequestConfig
-  interceptors: Interceptors
+  interceptors: {
+    request: InterceptorManager<AxiosRequestConfig>
+    response: InterceptorManager<AxiosResponse>
+  }
 
   constructor(url: string, initConfig: AxiosRequestConfig) {
     this.defaults = initConfig
@@ -40,33 +38,31 @@ export default class Axios {
       overUrl = url
       overConfig = config
     }
-    return dispatchRequest(overUrl, overConfig)
 
     // config = mergeConfig(this.defaults, config)
 
-    // const chain: PromiseChain<any>[] = [
-    //   {
-    //     resolved: dispatchRequest,
-    //     rejected: undefined
-    //   }
-    // ]
+    const chain: PromiseChain<any>[] = [
+      {
+        resolved: dispatchRequest,
+        rejected: undefined
+      }
+    ]
 
-    // this.interceptors.request.forEach(interceptor => {
-    //   chain.unshift(interceptor)
-    // })
+    this.interceptors.request.forEach(interceptor => {
+      chain.unshift(interceptor)
+    })
 
-    // this.interceptors.response.forEach(interceptor => {
-    //   chain.push(interceptor)
-    // })
+    this.interceptors.response.forEach(interceptor => {
+      chain.push(interceptor)
+    })
 
-    // let promise = Promise.resolve(config)
+    let promise = Promise.resolve(overConfig)
 
-    // while (chain.length) {
-    //   const { resolved, rejected } = chain.shift()!
-    //   promise = promise.then(resolved, rejected)
-    // }
-
-    // return promise
+    while (chain.length) {
+      const { resolved, rejected } = chain.shift()!
+      promise = promise.then(resolved, rejected)
+    }
+    return dispatchRequest(overUrl, overConfig)
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {

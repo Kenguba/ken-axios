@@ -17,14 +17,9 @@ export default function dispatchRequest(
 }
 
 function processConfig(url: string, config: AxiosRequestConfig): string {
-  let processConfigurl = transformURL(url, config)
-
+  let processConfigurl = bulidURL(url, config)
   config.body = transfromJSONstringify(config) //对post传参的处理
   return processConfigurl
-}
-
-function transformURL(url: string, config: AxiosRequestConfig) {
-  return bulidURL(url, config)
 }
 
 function transformHeaders(url: string, config: AxiosRequestConfig) {
