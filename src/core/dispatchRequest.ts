@@ -12,6 +12,7 @@ export default function dispatchRequest(
   const fullURL = processConfig(url, config) //对url?后参数的处理拼接,和对传参除GET请求体的处理
   transformHeaders(fullURL, config) //对headers处理
   return new XHR(fullURL, config).init().then(res => {
+    console.log(fullURL, config, res, 'fullURL')
     return transformResponseData(res) //对返回数据的处理
   })
 }
