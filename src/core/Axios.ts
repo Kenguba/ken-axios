@@ -4,7 +4,8 @@ import {
   AxiosResponse,
   Method,
   ResolvedFn,
-  RejectedFn
+  RejectedFn,
+  Axios as interfactAxios
 } from '../type'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
@@ -16,7 +17,7 @@ interface PromiseChain<T> {
   rejected?: RejectedFn
 }
 
-export default class Axios {
+export default class Axios implements interfactAxios {
   defaults: AxiosRequestConfig
   interceptors: {
     request: InterceptorManager<AxiosRequestConfig>
@@ -37,10 +38,10 @@ export default class Axios {
       const { url, ...config } = overUrl
       overUrl = url
       overConfig = config
+      console.log({ overUrl, ...overConfig }, '{ overUrl, ...overConfig }')
     }
 
     // config = mergeConfig(this.defaults, config)
-
     const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
@@ -56,13 +57,15 @@ export default class Axios {
       chain.push(interceptor)
     })
 
-    let promise = Promise.resolve(overConfig)
+    let promise = Promise.resolve({ overUrl, ...overConfig })
 
     while (chain.length) {
       const { resolved, rejected } = chain.shift()!
       promise = promise.then(resolved, rejected)
     }
+    // console.log(promise, "promise")
     return dispatchRequest(overUrl, overConfig)
+    // return promise
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {
