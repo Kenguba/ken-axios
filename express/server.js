@@ -163,7 +163,7 @@ function registerExtendRouter() {
 }
 
 function registerInterceptorRouter() {
-  router.get('/interceptor/get', function (req, res) {
+  router.post('/interceptor/post', function (req, res) {
     res.end('hello')
   })
 }
