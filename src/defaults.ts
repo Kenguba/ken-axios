@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from './type'
+import { AxiosRequestConfig } from './types'
 import { processHeaders } from './helpers/headers'
 import { transformRequest, transformResponse } from './helpers/data'
 

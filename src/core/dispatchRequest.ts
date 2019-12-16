@@ -1,38 +1,28 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosPesponse } from '../type'
-import XHR from './xhr'
-import { bulidURL } from '../helpers/url'
-import { transformRequest } from '../helpers/data'
-import { processHeaders } from '../helpers/headers'
-import { transform } from '../transform'
+import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from '../types'
+import xhr from './xhr'
+import { buildURL } from '../helpers/url'
+import { flattenHeaders } from '../helpers/headers'
+import transform from './transform'
 
-export default function dispatchRequest(
-  url: string,
-  config: AxiosRequestConfig = {}
-): AxiosPromise {
-  const fullURL = processConfig(url, config) //对url?后参数的处理拼接,和对传参除GET请求体的处理
-  transformHeaders(fullURL, config) //对headers处理
-  return new XHR(fullURL, config).init().then(res => {
-    return transformResponseData(res) //对返回数据的处理
+export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+  processConfig(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
   })
 }
 
-function processConfig(url: string, config: AxiosRequestConfig): string {
-  let processConfigurl = transformURL(url, config)
-
-  config.body = transformRequest(config) //对post传参的处理
-  return processConfigurl
+function processConfig(config: AxiosRequestConfig): void {
+  config.url = transformURL(config)
+  config.data = transform(config.data, config.headers, config.transformRequest)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 
-function transformURL(url: string, config: AxiosRequestConfig) {
-  return bulidURL(url, config)
+function transformURL(config: AxiosRequestConfig): string {
+  const { url, params } = config
+  return buildURL(url!, params)
 }
 
-function transformHeaders(url: string, config: AxiosRequestConfig) {
-  const { headers = {} } = config
-  config.headers = processHeaders(headers, config)
-}
-
-function transformResponseData(res: AxiosPesponse) {
-  res.data = transform(res.data)
+function transformResponseData(res: AxiosResponse): AxiosResponse {
+  res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }

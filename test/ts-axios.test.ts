@@ -1,4 +1,4 @@
-import Xhr from '../src/xhr'
+import DummyClass from '../src/ts-axios'
 
 /**
  * Dummy test
@@ -9,6 +9,6 @@ describe('Dummy test', () => {
   })
 
   it('DummyClass is instantiable', () => {
-    expect(new Xhr('/user/login', {})).toBeInstanceOf(Xhr)
+    expect(new DummyClass()).toBeInstanceOf(DummyClass)
   })
 })
