@@ -1,5 +1,5 @@
-// import axios from './core/dispatchRequest'
 import axios from './axios'
 
-export * from './type/index'
+export * from './types'
+
 export default axios
