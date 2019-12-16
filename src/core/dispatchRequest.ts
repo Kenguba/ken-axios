@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosPesponse } from '../type'
 import XHR from './xhr'
 import { bulidURL } from '../helpers/url'
-import { transfromJSONstringify } from '../helpers/data'
+import { transformRequest } from '../helpers/data'
 import { processHeaders } from '../helpers/headers'
 import { transform } from '../transform'
 
@@ -19,7 +19,7 @@ export default function dispatchRequest(
 function processConfig(url: string, config: AxiosRequestConfig): string {
   let processConfigurl = transformURL(url, config)
 
-  config.body = transfromJSONstringify(config) //对post传参的处理
+  config.body = transformRequest(config) //对post传参的处理
   return processConfigurl
 }
 
