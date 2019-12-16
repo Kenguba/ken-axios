@@ -6,12 +6,8 @@ interface Interceptor<T> {
 }
 
 export default class InterceptorManager<T> {
-  // interceptors: Array<{
-  //   resolved: ResolvedFn<T>
-  //   rejected?: RejectedFn
-  // } | null>
+  private interceptors: Array<Interceptor<T> | null>
 
-  interceptors: Array<Interceptor<T> | null>
   constructor() {
     this.interceptors = []
   }
@@ -24,17 +20,17 @@ export default class InterceptorManager<T> {
     return this.interceptors.length - 1
   }
 
-  eject(id: number): void {
-    if (this.interceptors[id]) {
-      this.interceptors[id] = null
-    }
-  }
-
   forEach(fn: (interceptor: Interceptor<T>) => void): void {
     this.interceptors.forEach(interceptor => {
       if (interceptor !== null) {
         fn(interceptor)
       }
     })
+  }
+
+  eject(id: number): void {
+    if (this.interceptors[id]) {
+      this.interceptors[id] = null
+    }
   }
 }

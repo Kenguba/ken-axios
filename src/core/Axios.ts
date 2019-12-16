@@ -63,9 +63,10 @@ export default class Axios implements interfactAxios {
       const { resolved, rejected } = chain.shift()!
       promise = promise.then(resolved, rejected)
     }
+
     // console.log(promise, "promise")
-    return dispatchRequest(overUrl, overConfig)
-    // return promise
+    // return dispatchRequest(overUrl, overConfig)
+    return promise
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {
