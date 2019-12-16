@@ -1,101 +1,80 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosPesponse } from '../type'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 
-export default class XHR {
-  url: string
-  config: AxiosRequestConfig
-  constructor(url: string, config: AxiosRequestConfig) {
-    this.url = url
-    this.config = config
-  }
+export default function xhr(config: AxiosRequestConfig): AxiosPromise {
+  return new Promise((resolve, reject) => {
+    const { data = null, url, method = 'get', headers, responseType, timeout } = config
 
-  init(): AxiosPromise {
-    return new Promise((resolve, reject) => {
-      const url = this.url
-      const config = this.config
-      const {
-        method = 'get',
-        body: data = null,
-        params = {},
-        headers,
-        responseType,
-        timeout
-      } = config
+    const request = new XMLHttpRequest()
 
-      //创造XMLHttpRequest实例,超时、响应类型,发送处理后的URL、请求方法
-      const xhr = new XMLHttpRequest()
-      // if (Object.keys(params).length > 0) {
-      //   let data_arr = [];
-      //   for (let key in params) {
-      //     data_arr.push(key + '=' + params[key]);
-      //   }
-      //   this.url += '?' + data_arr.join('&');
-      // }
-      if (timeout) {
-        xhr.timeout = timeout
-      }
-      if (responseType) {
-        xhr.responseType = responseType
-      }
-      xhr.open(method.toUpperCase(), url!, true) //this.url后面的!是(非空断言操作符)
+    if (responseType) {
+      request.responseType = responseType
+    }
 
-      //调用实例对象的读取状态改变方法
-      xhr.onreadystatechange = function handleLoad() {
-        if (xhr.readyState !== 4 || xhr.status === 0) return
-        const responseHeaders = parseHeaders(xhr.getAllResponseHeaders())
-        const responseData =
-          responseType && responseType !== 'text' ? xhr.response : xhr.responseText
-        const response: AxiosPesponse = {
-          data: responseData,
-          status: xhr.status,
-          statusText: xhr.statusText,
-          headers: responseHeaders,
-          config,
-          request: xhr
-        }
-        handleResponse(response)
+    if (timeout) {
+      request.timeout = timeout
+    }
+
+    request.open(method.toUpperCase(), url!, true)
+
+    request.onreadystatechange = function handleLoad() {
+      if (request.readyState !== 4) {
+        return
       }
 
-      // xhr.onerror = function handleError() {
-      //   reject(createError(`网络连接错误,请连接网络后再请求`, config, null, xhr))
-      // }
+      if (request.status === 0) {
+        return
+      }
 
-      // xhr.ontimeout = function handleTimeout() {
-      //   reject(createError(`超时:已超过 ${timeout}ms`, config, 'aborted', xhr))
-      // }
+      const responseHeaders = parseHeaders(request.getAllResponseHeaders())
+      const responseData =
+        responseType && responseType !== 'text' ? request.response : request.responseText
+      const response: AxiosResponse = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config,
+        request
+      }
+      handleResponse(response)
+    }
 
-      //请求头处理
-      Object.keys(headers).forEach(name => {
-        if (data === null && name.toLocaleLowerCase() === 'content-type') {
-          delete headers[name]
-          return
-        }
-        xhr.setRequestHeader(name, headers[name])
-      })
+    request.onerror = function handleError() {
+      reject(createError('Network Error', config, null, request))
+    }
 
-      xhr.send(data)
+    request.ontimeout = function handleTimeout() {
+      reject(
+        createError(`Timeout of ${config.timeout} ms exceeded`, config, 'ECONNABORTED', request)
+      )
+    }
 
-      function handleResponse(response: AxiosPesponse): void {
-        if (response.status >= 200 && response.status < 300) {
-          resolve(response)
-        } else {
-          createError({
-            message: `请求失败，状态代码为 ${response.status},请求路径：${url}`,
-            originalConfig: config,
-            xhr,
-            response
-          })
-          reject({
-            status: response.status,
-            url,
-            message: `请求失败，状态代码为 ${response.status}`,
-            originalConfig: config,
-            xhr,
-            response
-          })
-        }
+    Object.keys(headers).forEach(name => {
+      if (data === null && name.toLowerCase() === 'content-type') {
+        delete headers[name]
+      } else {
+        request.setRequestHeader(name, headers[name])
       }
     })
-  }
+
+    request.send(data)
+
+    function handleResponse(response: AxiosResponse): void {
+      if (response.status >= 200 && response.status < 300) {
+        resolve(response)
+      } else {
+        reject(
+          createError(
+            `Request failed with status code ${response.status}`,
+            config,
+            null,
+            request,
+            response
+          )
+        )
+      }
+    }
+  })
 }
