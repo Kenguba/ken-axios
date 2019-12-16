@@ -5,9 +5,7 @@ export default function transform(
   headers: any,
   fns?: AxiosTransformer | AxiosTransformer[]
 ): any {
-  if (!fns) {
-    return data
-  }
+  if (!fns) return data
   if (!Array.isArray(fns)) {
     fns = [fns]
   }
