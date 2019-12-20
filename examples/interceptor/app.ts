@@ -14,19 +14,19 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(res => {
-  res.data += '1'
+  res.data.name += '1'
   return res
 })
 let interceptor = axios.interceptors.response.use(res => {
-  res.data += '2'
+  res.data.name += '2'
   return res
 })
 axios.interceptors.response.use(res => {
-  res.data += '3'
+  res.data.name += '3'
   return res
 })
 
-axios.interceptors.response.eject(interceptor)
+// axios.interceptors.response.eject(interceptor)
 
 axios({
   url: '/interceptor/get',
