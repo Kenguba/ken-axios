@@ -29,7 +29,7 @@ export default function mergeConfig(
   return config
 }
 
-const bufferdict = Object.create(null)
+const bufferdict: { [name: string]: (val: any, val2: any) => void } = Object.create(null)
 
 function defaultStrat(val1: any, val2: any): any {
   return typeof val2 !== 'undefined' ? val2 : val1
@@ -37,25 +37,22 @@ function defaultStrat(val1: any, val2: any): any {
 
 const stratKeysFromVal2 = ['url', 'params', 'data']
 stratKeysFromVal2.forEach(key => {
-  bufferdict[key] = stratKeysFromVal2Fn
+  bufferdict[key] = function stratKeysFromVal2Fn(val1: any, val2: any): any {
+    if (typeof val2 !== 'undefined') return val2
+  }
 })
-function stratKeysFromVal2Fn(val1: any, val2: any): any {
-  if (typeof val2 !== 'undefined') return val2
-}
 
 const stratKeysDeepMerge = ['headers']
 stratKeysDeepMerge.forEach(key => {
-  bufferdict[key] = stratKeysDeepMergeFn
-})
-
-function stratKeysDeepMergeFn(val1: any, val2: any): any {
-  if (isPlainObject(val2)) {
-    return deepMerge(val1, val2)
-  } else if (typeof val2 !== 'undefined') {
-    return val2
-  } else if (isPlainObject(val1)) {
-    return deepMerge(val1)
-  } else if (typeof val1 !== 'undefined') {
-    return val1
+  bufferdict[key] = function stratKeysDeepMergeFn(val1: any, val2: any): any {
+    if (isPlainObject(val2)) {
+      return deepMerge(val1, val2)
+    } else if (typeof val2 !== 'undefined') {
+      return val2
+    } else if (isPlainObject(val1)) {
+      return deepMerge(val1)
+    } else if (typeof val1 !== 'undefined') {
+      return val1
+    }
   }
-}
+})
