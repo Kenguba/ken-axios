@@ -29,12 +29,11 @@ export default function mergeConfig(
   return config
 }
 
-const bufferdict: { [name: string]: (val: any, val2: any) => void } = Object.create(null)
-
 function defaultStrat(val1: any, val2: any): any {
   return typeof val2 !== 'undefined' ? val2 : val1
 }
 
+const bufferdict: { [name: string]: (val: any, val2: any) => void } = Object.create(null)
 const stratKeysFromVal2 = ['url', 'params', 'data']
 stratKeysFromVal2.forEach(key => {
   bufferdict[key] = function stratKeysFromVal2Fn(val1: any, val2: any): any {
