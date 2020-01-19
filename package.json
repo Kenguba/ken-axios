@@ -127,5 +127,8 @@
     "webpack": "^4.28.4",
     "webpack-dev-middleware": "^3.5.0",
     "webpack-hot-middleware": "^2.24.3"
+  },
+  "dependencies": {
+    "open-browser-webpack-plugin": "^0.0.5"
   }
 }
