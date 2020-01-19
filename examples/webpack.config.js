@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -63,6 +64,7 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
   ]
 }
