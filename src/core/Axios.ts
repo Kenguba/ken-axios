@@ -64,6 +64,7 @@ export default class Axios {
 
     while (chain.length) {
       const { resolved, rejected } = chain.shift()!
+      debugger
       promise = promise.then(resolved, rejected)
     }
 
