@@ -1,44 +1,45 @@
 import axios, { AxiosError } from '../../src/index'
 
 axios({
-  method: 'get',
-  url: '/error/get1'
-}).then((res) => {
+  url: '/error/get1',
+  method: 'get'
+}).then(res => {
   console.log(res)
-}).catch((e) => {
-  console.log(e)
+}).catch(err => {
+  console.log(err)
 })
 
 axios({
-  method: 'get',
-  url: '/error/get'
-}).then((res) => {
+  url: '/error/get',
+  method: 'get'
+}).then(res => {
   console.log(res)
-}).catch((e) => {
-  console.log(e)
+}).catch(err => {
+  console.log(err)
 })
 
 setTimeout(() => {
   axios({
-    method: 'get',
-    url: '/error/get'
-  }).then((res) => {
+    url: '/error/get',
+    method: 'get'
+  }).then(res => {
     console.log(res)
-  }).catch((e) => {
-    console.log(e)
+  }).catch(err => {
+    console.log(err)
   })
 }, 5000)
 
+
 axios({
-  method: 'get',
   url: '/error/timeout',
+  method: 'get',
   timeout: 2000
-}).then((res) => {
+}).then(res => {
   console.log(res)
-}).catch((e: AxiosError) => {
-  console.log(e.message)
-  console.log(e.config)
-  console.log(e.code)
-  console.log(e.request)
-  console.log(e.isAxiosError)
+}).catch((err: AxiosError) => {
+  console.log(err.message)
+  console.log(err.config)
+  console.log(err.code)
+  console.log(err.request)
+  console.log(err.isAxiosError)
 })
