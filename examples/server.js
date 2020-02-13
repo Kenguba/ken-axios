@@ -1,15 +1,20 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const mutipart = require('connect-multiparty')
+const atob = require('atob')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
-const cookieParser = require('cookie-parser')
-require('./server2')
-const app = express()
-const compiler = webpack(WebpackConfig)
+const path = require('path')
 
-app.use(webpackDevMiddleware(compiler, {
+require('./server2')
+
+const app = express()
+const complier = webpack(WebpackConfig)
+
+app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',
   stats: {
     colors: true,
@@ -17,27 +22,43 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }))
 
-app.use(webpackHotMiddleware(compiler))
-app.use(express.static(__dirname,{
-  setHeaders(res){
-    res.cookie('XSRF-TOKEN-D','abc123')
+app.use(webpackHotMiddleware(complier))
+app.use(express.static(__dirname, {
+  setHeaders(res) {
+    res.cookie('XSRF-TOKEN-D', Math.random().toString(16).slice(2))
   }
 }))
+
+app.use(express.static(__dirname))
+
 app.use(bodyParser.json())
-// app.use(bodyParser.text())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+
+// 用于将文件上传到指定文件
+app.use(mutipart({
+  uploadDir: path.resolve(__dirname, 'accept-upload-file')
+}))
 
 const router = express.Router()
 
 registerSimpleRouter()
+
 registerBaseRouter()
+
 registerErrorRouter()
+
 registerExtendRouter()
-registerInterceptorRouter()
+
+registerInterceptorRrouter()
+
 registerConfigRouter()
+
 registerCancelRouter()
+
 registerMoreRouter()
+
+registerUploadRouter()
 
 app.use(router)
 
@@ -49,12 +70,13 @@ module.exports = app.listen(port, () => {
 function registerSimpleRouter() {
   router.get('/simple/get', function (req, res) {
     res.json({
-      msg: `hello world`
+      msg: 'hello world'
     })
   })
 }
 
 function registerBaseRouter() {
+
   router.get('/base/get', function (req, res) {
     res.json(req.query)
   })
@@ -65,7 +87,7 @@ function registerBaseRouter() {
 
   router.post('/base/buffer', function (req, res) {
     let msg = []
-    req.on('data', (chunk) => {
+    req.on('data', chunk => {
       if (chunk) {
         msg.push(chunk)
       }
@@ -81,18 +103,17 @@ function registerErrorRouter() {
   router.get('/error/get', function (req, res) {
     if (Math.random() > 0.5) {
       res.json({
-        msg: `hello world`
+        msg: 'hello world'
       })
     } else {
       res.status(500)
       res.end()
     }
   })
-
   router.get('/error/timeout', function (req, res) {
     setTimeout(() => {
       res.json({
-        msg: `hello world`
+        msg: 'hello world'
       })
     }, 3000)
   })
@@ -109,11 +130,11 @@ function registerExtendRouter() {
     res.end()
   })
 
-  router.delete('/extend/delete', function (req, res) {
+  router.head('/extend/head', function (req, res) {
     res.end()
   })
 
-  router.head('/extend/head', function (req, res) {
+  router.delete('/extend/delete', function (req, res) {
     res.end()
   })
 
@@ -129,21 +150,22 @@ function registerExtendRouter() {
     res.json(req.body)
   })
 
+  // 响应数据支持泛型接口
   router.get('/extend/user', function (req, res) {
     res.json({
       code: 0,
       message: 'ok',
       result: {
-        name: 'jack',
+        name: 'Alice',
         age: 18
       }
     })
   })
 }
 
-function registerInterceptorRouter() {
+function registerInterceptorRrouter() {
   router.get('/interceptor/get', function (req, res) {
-    res.json({ name: 'hello' })
+    res.end('hello ')
   })
 }
 
@@ -154,27 +176,54 @@ function registerConfigRouter() {
 }
 
 function registerCancelRouter() {
-  router.get('/cancel/get1', function (req, res) {
+  router.get('/cancel/get', function (req, res) {
     setTimeout(() => {
-      res.json('/cancel/get1')
-    }, 2000)
-  })
-
-  router.get('/cancel/get2', function (req, res) {
-    setTimeout(() => {
-      res.json('/cancel/get2')
-    }, 2000)
+      res.json('hello')
+    }, 1000)
   })
 
   router.post('/cancel/post', function (req, res) {
     setTimeout(() => {
       res.json(req.body)
-    }, 2000)
+    }, 1000)
   })
 }
 
 function registerMoreRouter() {
-  router.get('/server/more/get', (req, res) => {
+  router.get('/more/get', (req, res) => {
     res.json(req.cookies)
+  })
+
+  router.post('/more/post', function (req, res) {
+    const auth = req.headers.authorization
+    const [type, credentials] = auth.split(' ')
+    console.log('atob on server:', atob(credentials))
+    const [username, password] = atob(credentials).split(':').map(item => item.trim())
+    if (type === 'Basic' && username === 'chen' && password === '123456') {
+      res.json(req.body)
+    } else {
+      res.status(401)
+      res.end('UnAuthorization')
+    }
+  })
+
+  router.get('/more/304', function (req, res) {
+    res.status(304)
+    res.end()
+  })
+
+  router.get('/more/A', function (req, res) {
+    res.end('A')
+  })
+
+  router.get('/more/B', function (req, res) {
+    res.end('B')
+  })
+}
+
+function registerUploadRouter() {
+  router.post('/upload-download/upload', function (req, res) {
+    console.log(req.body, req.files)
+    res.end('upload success!')
   })
 }
