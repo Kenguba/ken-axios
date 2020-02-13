@@ -4,8 +4,8 @@ axios.get('/server/more/get').then(res => {
   console.log(res);
 })
 
-axios.get('http://127.0.0.1:8888/server2/more/get', {
-  withCredentials: false
+axios.post('http://127.0.0.1:8888/server2/more/post', {},{
+  withCredentials: true
 }).then(res => {
   console.log(res);
 })
