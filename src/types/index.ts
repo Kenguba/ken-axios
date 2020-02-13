@@ -1,18 +1,27 @@
-export type Method =
-  | 'get'
-  | 'GET'
-  | 'delete'
-  | 'DELETE'
-  | 'head'
-  | 'HEAD'
-  | 'options'
-  | 'OPTIONS'
-  | 'post'
-  | 'POST'
-  | 'put'
-  | 'PUT'
-  | 'patch'
-  | 'PATCH'
+// export declare type Method = 'get'|'GET'
+// export type Method = 'get' | 'GET' | 'delete' | 'DELETE' | 'head' | 'HEAD' | 'options' | 'OPTIONS' | 'post' | 'POST' | 'put' | 'PUT' | 'patch' | 'PATCH'
+
+export declare const MethodList: [
+  'get',
+  'GET',
+  'delete',
+  'DELETE',
+  'head',
+  'HEAD',
+  'options',
+  'OPTIONS',
+  'post',
+  'POST',
+  'put',
+  'PUT',
+  'patch',
+  'PATCH'
+]
+export declare type Method = typeof MethodList[number]
+export interface Demo {
+  dict?: { [name in Method]: string }
+  [name: number]: string
+}
 
 export interface AxiosRequestConfig {
   url?: string
@@ -24,7 +33,7 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
-
+  cancleToken?: CancleToken
   [propName: string]: any
 }
 
@@ -96,4 +105,18 @@ export interface RejectedFn {
 
 export interface AxiosTransformer {
   (data: any, headers?: any): any
+}
+
+export interface CancleToken {
+  promise: Promise<string>
+  reason?: string
+  executor(fn: CancelExecutor): any
+}
+
+export interface Canceler {
+  (message: string): void
+}
+
+export interface CancelExecutor {
+  (cancle: Canceler): void
 }

@@ -22,7 +22,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       if (request.readyState !== 4) {
         return
       }
-
       if (request.status === 0) {
         return
       }
