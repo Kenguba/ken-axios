@@ -8,18 +8,18 @@ axios.get('/cancel/get1', {
   CancelToken: source.token
 }).catch((e) => {
   if (axios.isCancel(e)) {
-    console.log('Request Canceled', e.message);
+    console.log('/cancel/get1：', e.message);
   }
 })
 
 setTimeout(() => {
-  source.cancel("uesr取消操作")
+  source.cancel("取消操作")
   setTimeout(() => {
     axios.post('/cancel/post', { data: 1 }, {
       CancelToken: source.token
     }).catch((e) => {
       if (axios.isCancel(e)) {
-        console.log('Request Canceled:', e.message);
+        console.log('/cancel/post', e.message);
       }
     })
   }, 100);
@@ -32,11 +32,10 @@ axios.get('/cancel/get2', {
   CancelToken: new CancelToken(c => { cancel = c })
 }).catch((e) => {
   if (axios.isCancel(e)) {
-    console.log("Request Canceled")
+    console.log('/cancel/get2:', e.message);
   }
 })
-console.log(cancel);
 
 setTimeout(() => {
-  cancel("这是起小的")
+  cancel("取消操作")
 }, 500);

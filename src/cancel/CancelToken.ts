@@ -25,7 +25,6 @@ export default class CancelToken {
 
   throwIfRequested() {
     if (this.reason) {
-      console.log(`throwIfRequested:`, this.reason)
       throw this.reason
     }
   }

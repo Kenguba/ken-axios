@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -16,15 +17,20 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }))
 
+app.use(cookieParser)
 app.use(webpackHotMiddleware(compiler))
-
 app.use(express.static(__dirname))
-
 app.use(bodyParser.json())
 // app.use(bodyParser.text())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const router = express.Router()
+const cors = {
+  'Access-Control-Allow-Origin': 'http://localhost:8080',
+  'Access-Control-Allow-Credentials': true,
+  'Access-Control-Allow-Methods': 'POST,GET,PUT,DELETE,OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
 
 registerSimpleRouter()
 registerBaseRouter()
@@ -32,8 +38,9 @@ registerErrorRouter()
 registerExtendRouter()
 registerInterceptorRouter()
 registerConfigRouter()
-registerRouter()
- 
+registerCancelRouter()
+registerMoreRouter()
+
 app.use(router)
 
 const port = process.env.PORT || 8080
@@ -148,7 +155,7 @@ function registerConfigRouter() {
   })
 }
 
-function registerRouter() {
+function registerCancelRouter() {
   router.get('/cancel/get1', function (req, res) {
     setTimeout(() => {
       res.json('/cancel/get1')
@@ -160,10 +167,22 @@ function registerRouter() {
       res.json('/cancel/get2')
     }, 2000)
   })
-  
+
   router.post('/cancel/post', function (req, res) {
     setTimeout(() => {
       res.json(req.body)
     }, 2000)
+  })
+}
+
+function registerMoreRouter() {
+  router.get('/more/server2', function (req, res) {
+    res.set(cors)
+    res.json(req.cookies)
+  })
+
+  router.options('/more/server2', function (req, res) {
+    res.set(cors)
+    res.end()
   })
 }
