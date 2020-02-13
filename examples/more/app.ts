@@ -15,8 +15,8 @@ axios.post('http://127.0.0.1:8888/more/server2', {}, {
 
 // xsrf demo
 // const instance = axios.create({
-//   xsrfCookieName: 'XSRF-TOKEN-D',
-//   xsrfHeaderName: 'X-XSRF-TOKEN-D'
+//   xsrfCookieName: 'XSRF-TOKEN',
+//   xsrfHeaderName: 'XSRF-HEADER-NAME'
 // })
 
 // instance.get('/more/get').then(res => {
