@@ -1,5 +1,5 @@
 html, body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif, 'Courier New', Courier, monospace;
   color: #2c3e50;
 }
 
@@ -12,7 +12,6 @@ a {
   color: #7f8c8d;
   text-decoration: none;
 }
-
 a:hover {
   color: #4fc08d;
 }

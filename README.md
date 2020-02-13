@@ -1,28 +1,21 @@
+# 项目介绍
+用 typescript 实现 axios 浏览器部分，完善的 demo 与单元测试
+
 # ts-axios
+- 采用 Promise API
+- 请求和响应配置化
+- 支持请求和响应数据自定义拦截器
+- 支持外部取消请求
+- 支持跨域请求携带 cookie
+- 支持客户端 XSRF 防御
+- 支持 upload/download 进度监控
+- 支持 http authorization
+- 自定义合法状态码
+- 自定义参数序列化
+- 支持配置 baseURL
+- axios.all axios.spread axios.getUri 
 
-使用 TypeScript 从零实现一个 axios
+所有 axios 官方库浏览器端功能已实现
 
-## Features
-
-- 在浏览器端使用 XMLHttpRequest 对象通讯
-- 支持 Promise API
-- 支持请求和响应的拦截器
-- 支持请求数据和响应数据的转换
-- 支持请求的取消
-- JSON 数据的自动转换
-- 客户端防止 XSS
-
-## Usage
-
-```javascript
-const axios = require('axios')
-
-axios({
-  method: 'post',
-  url: '/user/12345',
-  data: {
-    firstName: 'Yee',
-    lastName: 'Huang'
-  }
-})
-```
+# 单元测试
+- helpers 模块测试用例编写完毕
