@@ -129,6 +129,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.4",
     "open-browser-webpack-plugin": "^0.0.5"
   }
 }
