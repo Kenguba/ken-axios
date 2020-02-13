@@ -6,5 +6,4 @@ const instance = axios.create({
 
 instance.get('/server/more/get').then(res => {
   console.log(res);
-
 })
