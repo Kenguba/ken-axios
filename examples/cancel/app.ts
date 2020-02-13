@@ -3,8 +3,6 @@ import CancelToken from '../../src/cancel/CancelToken';
 
 const CancleToken = axios.CancelToken
 const source = CancleToken.source()
-console.log(source.token);
-
 
 axios.get('/cancel/get1', {
   CancelToken: source.token
@@ -30,10 +28,9 @@ setTimeout(() => {
 
 
 let cancel: Canceler
-axios.get('/cancel/get1', {
+axios.get('/cancel/get2', {
   CancelToken: new CancelToken(c => { cancel = c })
 }).catch((e) => {
-  debugger
   if (axios.isCancel(e)) {
     console.log("Request Canceled")
   }

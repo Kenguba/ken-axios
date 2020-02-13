@@ -4,7 +4,7 @@ import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { data = null, url, method = 'get', headers, responseType, timeout, cancleToken } = config
+    const { data = null, url, method = 'get', headers, responseType, timeout, CancelToken } = config
 
     const request = new XMLHttpRequest()
 
@@ -58,8 +58,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     })
 
-    if (cancleToken) {
-      cancleToken.promise.then((reason: any) => {
+    if (CancelToken) {
+      CancelToken.promise.then((reason: any) => {
         request.abort()
         reject(reason)
       })
