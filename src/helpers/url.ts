@@ -1,4 +1,9 @@
 import { isDate, isPlainObject } from './util'
+import { inflate } from 'zlib'
+interface URLOringn {
+  protocol: any
+  host: any
+}
 
 function encode(val: string): string {
   return encodeURIComponent(val)
@@ -52,4 +57,20 @@ export function buildURL(url: string, params?: any): string {
   }
 
   return url
+}
+
+export function isURLSameOrigin(requestURL: string) {
+  const parsedOringin = resolveURL(requestURL)
+  return parsedOringin.protocol === currentOrigin.host
+}
+const currentOrigin = resolveURL(window.location.href)
+const urlParsingNode = document.createElement('a')
+
+function resolveURL(url: string): URLOringn {
+  urlParsingNode.setAttribute('href', url)
+  const { protocol, host } = urlParsingNode
+  return {
+    protocol,
+    host
+  }
 }
