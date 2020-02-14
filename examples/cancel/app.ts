@@ -13,7 +13,7 @@ axios.get('/cancel/get', {
   }
 })
 setTimeout(() => {
-  source.cancel('用户手动取消')
+  // source.cancel('用户手动取消')
 }, 100)
 
 
