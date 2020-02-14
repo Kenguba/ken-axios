@@ -114,6 +114,12 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         }
       }
 
+
+      /**
+       * kim-stamp 
+       * btoa() 方法用于创建一个 base-64 编码的字符串。
+       *该方法使用 "A-Z", "a-z", "0-9", "+", "/" 和 "=" 字符来编码字符串。
+       */
       if (auth) {
         headers['Authorization'] =  `Basic ${btoa(`${auth.username} : ${auth.password}`)}`
       }

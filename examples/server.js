@@ -43,23 +43,14 @@ app.use(mutipart({
 const router = express.Router()
 
 registerSimpleRouter()
-
 registerBaseRouter()
-
 registerErrorRouter()
-
 registerExtendRouter()
-
 registerInterceptorRrouter()
-
 registerConfigRouter()
-
 registerCancelRouter()
-
 registerMoreRouter()
-
 registerUploadRouter()
-
 app.use(router)
 
 const port = process.env.PORT || 8080
@@ -205,7 +196,7 @@ function registerMoreRouter() {
     const [type, credentials] = auth.split(' ')
     console.log('atob on server:', atob(credentials))
     const [username, password] = atob(credentials).split(':').map(item => item.trim())
-    if (type === 'Basic' && username === 'chen' && password === '123456') {
+    if (type === 'Basic' && username === 'kim' && password === '123456') {
       res.json(req.body)
     } else {
       res.status(401)
