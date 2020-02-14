@@ -92,7 +92,6 @@ function resolveURL(url: string): URLOrigin {
   // 通过创建一个 <a> 标签并设置 href 属性可以快捷的拿到 protocol 和 host
   urlParsingNode.setAttribute('href', url)
   const { protocol, host } = urlParsingNode
-
   return {
     protocol,
     host

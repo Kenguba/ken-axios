@@ -19,8 +19,9 @@ function loadProgressBar() {
 
   const setupUpdateProgress = () => {
     const update = (e: ProgressEvent) => {
-      console.log('setupUpdateProgress:',e)
       NProgress.set(calculatePercentage(e.loaded, e.total))
+      //打印了两次是因为被调用了两次
+      console.log('setupUpdateProgress:', e)
     }
     instance.defaults.onDownloadProgress = update
     instance.defaults.onUploadProgress = update

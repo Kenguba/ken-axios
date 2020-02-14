@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/logistics/ocean-shipping/ocean-shipping",
+    "pages/index/index",
+    "pages/class/class",
+    "pages/booklist/booklist",
+    "pages/mine/mine",
+    "pages/bookdetail/bookdetail",
+    "pages/about/about",
+    "pages/course/course",
+    "pages/logistics/search-price/search-price",
+    "pages/logistics/booking-space/booking-space"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "一缕清风",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eeeeee"
+  },
+  "tabBar": {
+    "color": "#c7c7c7",
+    "selectedColor": "#13227a",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/class/class",
+        "text": "首页",
+        "iconPath": "images/resident/home.png",
+        "selectedIconPath": "images/resident/home@highlight.png"
+      },
+      {
+        "pagePath": "pages/booklist/booklist",
+        "text": "服务",
+        "iconPath": "images/resident/services.png",
+        "selectedIconPath": "images/resident/services@highlight.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/resident/me.png",
+        "selectedIconPath": "images/resident/me@highlight.png"
+      }
+    ],
+    "networkTimeout": {
+      "request": 10000,
+      "downloadFile": 10000
+    },
+    "debug": true,
+    "navigateToMiniProgramAppIdList": [
+      "wxe5f52902cf4de896"
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

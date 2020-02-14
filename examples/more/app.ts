@@ -35,18 +35,18 @@ axios.post('http://127.0.0.1:8888/more/server2', {}, {
 //   console.log('http auth success demo', res)
 // })
 
-// axios.post('/more/post', {
-//   a: 1
-// }, {
-//   auth: {
-//     username: 'chen111',
-//     password: '123456'
-//   }
-// }).then(res => {
-//   console.log('http auth fail demo', res)
-// }).catch(err => {
-//   console.log('http auth fail demo', err)
-// })
+axios.post('/more/post', {
+  a: 1
+}, {
+  auth: {
+    username: 'kim',
+    password: '123456'
+  }
+}).then(res => {
+  console.log('http auth fail demo', res)
+}).catch(err => {
+  console.log('http auth fail demo', err)
+})
 
 // // 自定义合法状态码 demo
 // axios.get('/more/304').then(res => {
