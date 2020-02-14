@@ -178,7 +178,13 @@ function registerConfigRouter() {
 function registerCancelRouter() {
   router.get('/cancel/get', function (req, res) {
     setTimeout(() => {
-      res.json('hello')
+      res.json('/cancel/get')
+    }, 1000)
+  })
+
+  router.get('/cancel/get1', function (req, res) {
+    setTimeout(() => {
+      res.json('/cancel/get1')
     }, 1000)
   })
 

@@ -22,7 +22,6 @@ export default class CancelToken {
     })
 
     executor(message => {
-      
       if (this.reason) return
       this.reason = new Cancel(message)
       resolvePromise(this.reason)
@@ -30,24 +29,13 @@ export default class CancelToken {
   }
 
   throwIfRequested() {
-    if (this.reason) {
-      
-      throw this.reason
-    }
+    if (this.reason) { throw this.reason }
   }
 
   static source(): CancelTokenSource {
     let cancel!: Canceler
-    
-    const token = new CancelToken(c => {
-      
-      cancel = c
-    })
-
-    return {
-      cancel,
-      token
-    }
+    const token = new CancelToken(c => { cancel = c })
+    return { cancel, token }
   }
 }
 
