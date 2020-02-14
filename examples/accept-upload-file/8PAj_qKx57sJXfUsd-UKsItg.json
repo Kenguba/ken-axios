@@ -1,0 +1,116 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.8.2",
+	"appid": "wx89bac145d7c410c1",
+	"projectname": "%E4%B8%80%E7%BC%95%E6%B8%85%E9%A3%8E",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 8,
+			"list": [
+				{
+					"id": 0,
+					"name": "like",
+					"pathName": "pages/mine/mine",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "class",
+					"pathName": "pages/class/class",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "book",
+					"pathName": "pages/bookdetail/bookdetail",
+					"query": "aid=1"
+				},
+				{
+					"id": -1,
+					"name": "pages/logistics/ocean-shipping/ocean-shipping",
+					"pathName": "pages/logistics/ocean-shipping/ocean-shipping",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/logistics/search-price/search-price",
+					"pathName": "pages/logistics/search-price/search-price",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/logistics/booking-space/booking-space",
+					"pathName": "pages/logistics/booking-space/booking-space",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/booklist/booklist",
+					"pathName": "pages/booklist/booklist",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/booklist/booklist",
+					"pathName": "pages/booklist/booklist",
+					"scene": null
+				}
+			]
+		}
+	}
+}

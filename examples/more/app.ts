@@ -1,7 +1,7 @@
 import axios from '../../src'
 import qs from 'qs'
 
-document.cookie = 'a=b'
+document.cookie = 'name=kim'
 
 axios.get('/more/get').then(res => {
   console.log(res)

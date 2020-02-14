@@ -19,7 +19,7 @@ function loadProgressBar() {
 
   const setupUpdateProgress = () => {
     const update = (e: ProgressEvent) => {
-      console.log(e)
+      console.log('setupUpdateProgress:',e)
       NProgress.set(calculatePercentage(e.loaded, e.total))
     }
     instance.defaults.onDownloadProgress = update
