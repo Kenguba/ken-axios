@@ -38,7 +38,6 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
 // 请求判断此请求是否已经被取消了，如果被取消了，再发送此请求是没有意义的
 function throwIfCancellationRequested(config: AxiosRequestConfig): void{
   if (config.cancelToken) {
-    
     config.cancelToken.throwIfRequested()
   }
 }
