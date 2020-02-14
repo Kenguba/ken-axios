@@ -1,17 +1,15 @@
 import axios from '../../src'
 import qs from 'qs'
 
-document.cookie = 'name=kim'
-
-axios.get('/more/get').then(res => {
-  console.log(res)
-})
-
-axios.post('http://127.0.0.1:8888/more/server2', {}, {
-  withCredentials: false
-}).then(res => {
-  console.log(res)
-})
+// document.cookie = 'name=kim'
+// axios.get('/more/get').then(res => {
+//   console.log(res)
+// })
+// axios.post('http://127.0.0.1:8888/more/server2', {}, {
+//   withCredentials: false
+// }).then(res => {
+//   console.log(res)
+// })
 
 // xsrf demo
 // const instance = axios.create({
@@ -35,18 +33,21 @@ axios.post('http://127.0.0.1:8888/more/server2', {}, {
 //   console.log('http auth success demo', res)
 // })
 
-axios.post('/more/post', {
-  a: 1
-}, {
-  auth: {
-    username: 'kim',
-    password: '123456'
-  }
-}).then(res => {
-  console.log('http auth fail demo', res)
-}).catch(err => {
-  console.log('http auth fail demo', err)
-})
+
+// axios.post('/more/post', {
+//   a: 1
+// }, {
+//   auth: {
+//     username: 'kim',
+//     password: '123456'
+//   }
+// }).then(res => {
+//   console.log('http auth fail demo', res)
+// }).catch(err => {
+//   console.log('http auth fail demo', err)
+// })
+
+
 
 // // 自定义合法状态码 demo
 // axios.get('/more/304').then(res => {
@@ -101,7 +102,7 @@ axios.post('/more/post', {
 //   console.log(res)
 // })
 
-// // custom baseURL demo
+// custom baseURL demo
 // const instance3 = axios.create({
 //   baseURL: 'https://img.mukewang.com/'
 // })
@@ -111,24 +112,24 @@ axios.post('/more/post', {
 
 
 // // axios.all axios.spread axios.getUri demo
-// function getA() {
-//   return axios.get('/more/A')
-// }
-// function getB() {
-//   return axios.get('/more/B')
-// }
+function getA() {
+  return axios.get('/more/A')
+}
+function getB() {
+  return axios.get('/more/B')
+}
 
-// axios.all([getA(), getB()])
-//   .then(axios.spread(function(resA, resB) {
-//     console.log(resA.data)
-//     console.log(resB.data)
-//   }))
+axios.all([getA(), getB()])
+  .then(axios.spread(function (resA, resB) {
+    console.log(resA.data)
+    console.log(resB.data)
+  }))
 
-// axios.all([getA(), getB()])
-//   .then(([resA, resB]) => {
-//     console.log(resA.data)
-//     console.log(resB.data)
-//   })
+axios.all([getA(), getB()])
+  .then(([resA, resB]) => {
+    console.log(resA.data)
+    console.log(resB.data)
+  })
 
 // const fakeConfig = {
 //   baseURL: 'https://www.baidu.com',
