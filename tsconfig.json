@@ -10,8 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
+    "declarationDir": "/Users/kim/Documents/build/types",
+    "outDir": "/Users/kim/Documents/build/lib",
     "typeRoots": [
       "node_modules/@types"
     ]
