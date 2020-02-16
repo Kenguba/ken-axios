@@ -10,7 +10,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     const {
       data = null,
       url,
-      method = 'get',
+      method,
       headers = {},
       responseType,
       timeout,
