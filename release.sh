@@ -12,7 +12,8 @@ then
   git add -A
   git commit -m "[build] $VERSION"
   npm version $VERSION --message "[release] $VERSION"
-  git push origin master
+  git remote add origin https://gitee.com/KimGuBa/kim-axios.git
+  git push -u origin master
 
   # publish
   npm publish
