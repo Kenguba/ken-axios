@@ -14,29 +14,25 @@ puppeteer.launch({
   //   '--auto-open-devtools-for-tabs',// 自动打开调试工具
   // ]
 }).then(async browser => {
-  const page = await browser.newPage();       // 新建标签页，打开一个页面
   await page.emulate(iPhone); // 让页面模拟成iphone6
+  await page.setViewport({ width: 375, height: 600, isMobile: true, hasTouch: true })
+  const page = await browser.newPage();       // 新建标签页，打开一个页面
 
-  try {
-    await page.goto('https://www.baidu.com');   // 打开百度
-    await page.type('#index-kw', 'puppeteer') // 键盘输入关键字
-    await page.screenshot({ path: '/Users/kim/Music/1.png' })
-    await page.waitFor(1000);  // 暂停一会
-    await page.click('#index-bn') // 模拟用户点击搜索提交表单
-    await Promise.all([
-      page.setUserAgent(UserAgent),
-      page.setJavaScriptEnabled(true),  // 允许运行js
-      // page.setViewport({width: 1100, height: 1080}),  // 设置页面视口的大小
-      await page.setViewport({ width: 375, height: 600, isMobile: true, hasTouch: true })
-    ]);
-    console.log(await browser.userAgent()); //获取浏览器默认的user-agent
-    let content = await page.$eval('body', el => el.innerText);
-    console.log(content);
-  } catch (error) {
+  await page.goto('https://www.baidu.com');   // 打开百度
+  await page.type('#index-kw', 'puppeteer') // 键盘输入关键字
+  await page.screenshot({ path: '/Users/kim/Music/1.png' })
+  await page.waitFor(1000);  // 暂停一会
+  await page.click('#index-bn') // 模拟用户点击搜索提交表单
+  await Promise.all([
+    page.setUserAgent(UserAgent),
+    page.setJavaScriptEnabled(true),  // 允许运行js
+    // page.setViewport({width: 1100, height: 1080}),  // 设置页面视口的大小
 
-  }
+  ]);
+  console.log(await browser.userAgent()); //获取浏览器默认的user-agent
+  let content = await page.$eval('body', el => el.innerText);
+  console.log(content);
 
-  
   await page.waitFor(2000);  // 暂停一会
   // await context.close();  //关闭无痕模式
   await page.goto('https://www.bilibili.com/');
