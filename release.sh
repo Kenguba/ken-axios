@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 echo "请输入的版本号<Enter release version>:"
-read VERSION
+read VERSION  #表示从标准输入读取值，并赋值给 $VERSION 变量
 read -p "你确定你的版本号为$VERSION?<Releasing are you sure is $VERSION?> (y/n)" -n 1 -r
 echo  # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
