@@ -140,6 +140,9 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
+    "@types/jasmine-ajax": "^3.3.0",
+    "jasmine-ajax": "^4.0.0",
+    "jasmine-core": "^3.5.0",
     "open-browser-webpack-plugin": "^0.0.5"
   }
 }

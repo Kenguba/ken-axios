@@ -7,9 +7,17 @@ import { transform } from './transform'
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   throwIfCancellationRequested(config)
   precessConfig(config)
-  return xhr(config).then(res => {
-    return transformResponseData(res)
-  })
+  return xhr(config).then(
+    res => {
+      return transformResponseData(res)
+    },
+    e => {
+      if (e && e.response) {
+        e.response = transformResponseData(e.response)
+      }
+      return Promise.reject(e)
+    }
+  )
 }
 
 function precessConfig(config: AxiosRequestConfig): void {
@@ -25,7 +33,7 @@ export function transformURL(config: AxiosRequestConfig): string {
   let { url } = config
   if (baseURL && !isAbsoluteURL(url!)) {
     url = combineURL(baseURL, url)
-  } 
+  }
   // 这里可以保证运行时 url 是有值的
   return buildURL(url!, params, paramsSerializer)
 }
@@ -36,7 +44,7 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
 }
 
 // 请求判断此请求是否已经被取消了，如果被取消了，再发送此请求是没有意义的
-function throwIfCancellationRequested(config: AxiosRequestConfig): void{
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
   if (config.cancelToken) {
     config.cancelToken.throwIfRequested()
   }
