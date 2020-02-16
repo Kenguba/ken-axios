@@ -1,5 +1,5 @@
 #!/usr/bin/env sh  #用来表示它是一个 shell 脚本
-set -e #告诉脚本如果执行结果不为 true 则退出
+# set -e #告诉脚本如果执行结果不为 true 则退出
 echo "请输入的版本号<Enter release version>:"
 read VERSION  #表示从标准输入读取值，并赋值给 $VERSION 变量
 read -p "你确定你的版本号为$VERSION?<Releasing are you sure is $VERSION?> (y/n)" -n 1 -r
