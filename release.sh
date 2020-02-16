@@ -1,5 +1,15 @@
 #!/usr/bin/env sh  #用来表示它是一个 shell 脚本
 # set -e #告诉脚本如果执行结果不为 true 则退出
+funWithReturn(){
+    echo "这个函数会对输入的两个数字进行相加运算..."
+    echo "输入第一个数字: "
+    read aNum
+    echo "输入第二个数字: "
+    read anotherNum
+    echo "两个数字分别为 $aNum 和 $anotherNum !"
+    return $(($aNum+$anotherNum))
+}
+# funWithReturn
 echo "请输入的版本号<Enter release version>:"
 read VERSION  #表示从标准输入读取值，并赋值给 $VERSION 变量
 read -p "你确定你的版本号为$VERSION?<Releasing are you sure is $VERSION?> (y/n)" -n 1 -r
