@@ -145,7 +145,7 @@
     "@types/jasmine-ajax": "^3.3.0",
     "jasmine-ajax": "^4.0.0",
     "jasmine-core": "^3.5.0",
-    "kim-axios": "^1.5.1",
+    "kim-axios": "^1.5.2",
     "open-browser-webpack-plugin": "^0.0.5"
   }
 }
