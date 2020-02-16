@@ -29,6 +29,7 @@ then
 
   npm publish #是把仓库发布到 npm 上，我们会把 dist 目录下的代码都发布到 npm 上，因为我们在 package.json 中配置的是 files 是 ["dist"]
   cd ./dist
+  ls .
   git init 
   git add . 
   git commit -m "[build] $VERSION"  #表示提交代码，提交注释是 [build] $VERSION
