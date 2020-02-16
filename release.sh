@@ -11,7 +11,7 @@ funWithReturn(){
 }
 # funWithReturn
 echo "你当前使用的最新版本"
-npm view kim-axios version
+# npm view kim-axios version
 echo "请输入的版本号<Enter release version>:"
 read VERSION  #表示从标准输入读取值，并赋值给 $VERSION 变量
 read -p "你确定你的版本号为$VERSION?<Releasing are you sure is $VERSION?> (y/n)" -n 1 -r
