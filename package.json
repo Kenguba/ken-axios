@@ -23,7 +23,7 @@
     "dev": "node examples/server.js",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "prepub": "npm run test:prod && npm run build",
-    "pub": "sh release.sh",
+    "publish": "sh release.sh",
     "nodemon": "nodemon examples/server.js",
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
