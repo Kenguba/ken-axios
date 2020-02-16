@@ -14,8 +14,6 @@ then
   git commit -m "[build] $VERSION"  #表示提交代码，提交注释是 [build] $VERSION
   npm version $VERSION --message "[release] $VERSION"
   # git remote add origin https://gitee.com/KimGuBa/kim-axios.git
-  git push -u origin master #是修改 package.json 中的 version 字段到 $VERSION，并且提交一条修改记录，提交注释是 [release] $VERSION
-
-  # publish
-  npm publish
+  # git push -u origin master #是修改 package.json 中的 version 字段到 $VERSION，并且提交一条修改记录，提交注释是 [release] $VERSION
+  npm publish #是把仓库发布到 npm 上，我们会把 dist 目录下的代码都发布到 npm 上，因为我们在 package.json 中配置的是 files 是 ["dist"]
 fi
