@@ -1,6 +1,6 @@
 {
   "name": "kim-axios",
-  "version": "1.2.4",
+  "version": "1.1.1",
   "description": "",
   "keywords": [],
   "main": "dist/axios.umd.js",
