@@ -28,7 +28,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     // 第三个参数为 async 是否是异步请求
     // 这里可以保证运行时 url 是有值的
-    request.open(method.toUpperCase(), url!, true)
+    request.open(method!.toUpperCase(), url!, true)
 
     configureRequest()
     addEvents()
@@ -62,7 +62,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         const responseHeaders = parseHeaders(request.getAllResponseHeaders())
 
         // 根据传入的 responseType 来决定返回的数据
-        const responseData = responseType === 'text' ? request.responseText : request.response
+        const responseData =
+          responseType && responseType !== 'text' ? request.response : request.responseText
 
         const response: AxiosResponse = {
           data: responseData,
