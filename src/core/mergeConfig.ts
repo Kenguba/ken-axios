@@ -41,7 +41,7 @@ stratKeysFromVal2.forEach(key => {
   }
 })
 
-const stratKeysDeepMerge = ['headers','auth']
+const stratKeysDeepMerge = ['headers', 'auth']
 stratKeysDeepMerge.forEach(key => {
   bufferdict[key] = function stratKeysDeepMergeFn(val1: any, val2: any): any {
     if (isPlainObject(val2)) {
@@ -50,7 +50,7 @@ stratKeysDeepMerge.forEach(key => {
       return val2
     } else if (isPlainObject(val1)) {
       return deepMerge(val1)
-    } else if (typeof val1 !== 'undefined') {
+    } else {
       return val1
     }
   }
