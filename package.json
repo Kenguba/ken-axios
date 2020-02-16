@@ -1,13 +1,13 @@
 {
   "name": "kim-axios",
-  "version": "1.4.6",
+  "version": "1.4.5",
   "description": "",
   "keywords": [],
-  "main": "/Users/kim/Documents/build/axios.umd.js",
-  "module": "/Users/kim/Documents/build/axios.es5.js",
-  "typings": "/Users/kim/Documents/build/types/index.d.ts",
+  "main": "dist/axios.umd.js",
+  "module": "dist/axios.es5.js",
+  "typings": "dist/types/index.d.ts",
   "files": [
-    "/Users/kim/Documents/build"
+    "dist"
   ],
   "author": "yishibakaien <646932161@qq.com>",
   "repository": {
@@ -26,7 +26,7 @@
     "pub": "sh release.sh",
     "nodemon": "nodemon examples/server.js",
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf /Users/kim/Documents/build",
+    "prebuild": "rimraf dist",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
