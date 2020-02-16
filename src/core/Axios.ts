@@ -1,7 +1,14 @@
-import { AxiosRequestConfig, AxiosPromise, Method, AxiosResponse, ResolvedFn, RejectedFn } from "../types";
-import dispatchRequest, { transformURL } from "./dispatchRequest";
-import InterceptorManager from "./InterceptorManager";
-import mergeConfig from "./mergeConfig";
+import {
+  AxiosRequestConfig,
+  AxiosPromise,
+  Method,
+  AxiosResponse,
+  ResolvedFn,
+  RejectedFn
+} from '../types'
+import dispatchRequest, { transformURL } from './dispatchRequest'
+import InterceptorManager from './InterceptorManager'
+import mergeConfig from './mergeConfig'
 
 interface Interceptors {
   request: InterceptorManager<AxiosRequestConfig>
@@ -37,11 +44,14 @@ export default class Axios {
     }
 
     config = mergeConfig(this.defaults, config)
+    config.method = config.method.toLocaleLowerCase()
 
-    const chain: PromiseChain<any>[] = [{
-      resolved: dispatchRequest,
-      rejected: undefined
-    }]
+    const chain: PromiseChain<any>[] = [
+      {
+        resolved: dispatchRequest,
+        rejected: undefined
+      }
+    ]
 
     this.interceptors.request.forEach(interceptor => {
       // request 拦截器先添加的后执行
@@ -98,18 +108,22 @@ export default class Axios {
     return transformURL(config)
   }
 
-  _requestMethodWhithoutData(method: Method, url:string, config?: AxiosRequestConfig) {
-    return this.request(Object.assign(config || {}, {
-      method,
-      url
-    }))
+  _requestMethodWhithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
+    return this.request(
+      Object.assign(config || {}, {
+        method,
+        url
+      })
+    )
   }
 
-  _requestMethodWhithData(method: Method, url:string, data?: any, config?: AxiosRequestConfig) {
-    return this.request(Object.assign(config || {}, {
-      method,
-      url,
-      data
-    }))
+  _requestMethodWhithData(method: Method, url: string, data?: any, config?: AxiosRequestConfig) {
+    return this.request(
+      Object.assign(config || {}, {
+        method,
+        url,
+        data
+      })
+    )
   }
 }
