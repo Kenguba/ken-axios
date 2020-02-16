@@ -5973,6 +5973,16 @@ keyv@^3.0.0:
   dependencies:
     json-buffer "3.0.0"
 
+kim-axios@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/kim-axios/-/kim-axios-1.5.1.tgz#e6a587d6ff071cf28adf5227d21478c0c66d99aa"
+  integrity sha512-mlPx2m2p2l7KKZ8pQY5CUcbVVdTeu54NZAmmTKs0Ha+yrrRIOtwP8g8UpeDcORLQ9bgLWHSBPcPV4PIv+fBJrg==
+  dependencies:
+    "@types/jasmine-ajax" "^3.3.0"
+    jasmine-ajax "^4.0.0"
+    jasmine-core "^3.5.0"
+    open-browser-webpack-plugin "^0.0.5"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
