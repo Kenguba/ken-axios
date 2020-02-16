@@ -6,7 +6,7 @@ describe('helpers:cookie', () => {
     expect(cookie.read('foo')).toBe('baz')
   })
 
-  test('should return null if cookie name is exist', () => {
+  test('should return null if cookie name is not exist', () => {
     document.cookie = 'foo=baz'
     expect(cookie.read('bar')).toBeNull()
   })
