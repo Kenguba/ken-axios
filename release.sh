@@ -34,5 +34,4 @@ then
   # git add . 
   # git commit -m "[build] $VERSION"  #表示提交代码，提交注释是 [build] $VERSION
   # git remote add origin https://gitee.com/KimGuBa/kim-axios.git
-if[[$REPLY !=~ ^[Yy]$ ]]
 fi
