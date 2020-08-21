@@ -1,7 +1,8 @@
 # 项目介绍
-用 typescript 重构 XMLHttpRequest  浏览器部分，配有使用的 demo 与模块的单元测试
+基于XMLHttpRequest的网络请求,使用用 typescript 重构 ，配有使用的 demo 与模块的单元测试
 
-# ken-http
+
+# ken-axios
 - 采用 Promise API
 - 请求和响应配置化
 - 支持请求和响应数据自定义拦截器
@@ -16,6 +17,7 @@
 - axios.all axios.spread axios.getUri 
 
 所有 axios 官方库浏览器端功能已实现
+
 
 # 单元测试
 - helpers 模块测试用例编写完毕
