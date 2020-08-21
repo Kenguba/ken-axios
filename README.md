@@ -1,7 +1,7 @@
 # 项目介绍
-用 typescript 实现 axios 浏览器部分，完善的 demo 与单元测试
+用 typescript 重构 XMLHttpRequest  浏览器部分，配有使用的 demo 与模块的单元测试
 
-# ts-axios
+# ken-http
 - 采用 Promise API
 - 请求和响应配置化
 - 支持请求和响应数据自定义拦截器
